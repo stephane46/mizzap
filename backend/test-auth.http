@@ -1,0 +1,101 @@
+### MIZZAP Authentication API Tests
+### Use REST Client extension in VS Code to run these requests
+### Click "Send Request" above each request to execute
+
+@baseUrl = http://localhost:3000/api/v1
+@accessToken = 
+
+### Health Check
+GET http://localhost:3000/health
+
+###
+
+### 1. Register a New User
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "demo.user@mizzap.com",
+  "password": "SecurePass123!",
+  "fullName": "Demo User"
+}
+
+###
+
+### 2. Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "demo.user@mizzap.com",
+  "password": "SecurePass123!"
+}
+
+###
+
+### 3. Get Current User (Protected)
+# Automatically uses the token from the login response above
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{login.response.body.data.accessToken}}
+
+###
+
+### 4. Register Another User
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "SecurePass123",
+  "fullName": "John Doe"
+}
+
+###
+
+### 5. Test Invalid Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "WrongPassword"
+}
+
+###
+
+### 6. Test Duplicate Registration
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test1234",
+  "fullName": "Test User"
+}
+
+###
+
+### 7. Test Invalid Email Format
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "invalid-email",
+  "password": "Test1234",
+  "fullName": "Test User"
+}
+
+###
+
+### 8. Test Weak Password
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "weak@example.com",
+  "password": "weak",
+  "fullName": "Weak Password User"
+}
+
+###
