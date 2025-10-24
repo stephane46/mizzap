@@ -6,6 +6,7 @@ import { config } from './config';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import healthRouter from './routes/health';
 import authRouter from './routes/auth';
+import photosRouter from './routes/photos';
 
 /**
  * Create and configure Express application
@@ -45,6 +46,7 @@ const createApp = (): Application => {
   // Routes
   app.use('/health', healthRouter);
   app.use('/api/v1/auth', authRouter);
+  app.use('/api/v1/photos', photosRouter);
 
   // 404 handler
   app.use(notFoundHandler);

@@ -11,9 +11,7 @@ export default {
   dbCredentials: {
     connectionString: process.env.DATABASE_URL!,
   },
-  // Only manage tables that start with 'mizzap_' - ignore all other tables
-  schemaFilter: ['public'],
-  tablesFilter: ['mizzap_*'],
+  schemaFilter: ['mizzap'], // Use dedicated mizzap schema, NOT public
   verbose: true,
-  strict: false, // Don't enforce strict mode to avoid dropping other tables
+  strict: false,
 } satisfies Config;
